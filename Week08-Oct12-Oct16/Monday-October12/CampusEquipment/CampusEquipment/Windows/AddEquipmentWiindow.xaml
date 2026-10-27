@@ -1,0 +1,141 @@
+﻿<Window x:Class="CampusEquipment.Windows.AddEquipmentWiindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampusEquipment.Windows"
+        mc:Ignorable="d"
+        Title="AddEquipmentWiindow" Height="450" Width="800">
+    <Grid Margin ="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+           Grid.Column="0"
+           Text="Asset Number:"
+           Margin="0,8"/>
+
+        <TextBox Grid.Row="0"
+         Grid.Column="1"
+         x:Name="AssetNumberTextBox"
+         Margin="5"/>
+
+
+        <TextBlock Grid.Row="1"
+           Grid.Column="0"
+           Text="Equipment Name:"
+           Margin="0,8"/>
+
+        <TextBox Grid.Row="1"
+         Grid.Column="1"
+         x:Name="EquipmentNameTextBox"
+         Margin="5"/>
+
+        <TextBlock Grid.Row="2"
+           Grid.Column="0"
+           Text="Category:"
+           Margin="0,8"/>
+
+        <TextBlock Grid.Row="2"
+           Grid.Column="0"
+           Text="Category:"
+           Margin="0,8"/>
+
+        <ComboBox Grid.Row="2"
+          Grid.Column="1"
+          x:Name="CategoryComboBox"
+          Margin="5"/>
+
+        <TextBlock Grid.Row="3"
+           Grid.Column="0"
+           Text="Daily Rental Rate:"
+           Margin="0,8"/>
+
+        <TextBox Grid.Row="3"
+         Grid.Column="1"
+         x:Name="DailyRateTextBox"
+         Margin="5"/>
+
+        <TextBlock Grid.Row="4"
+           Grid.Column="0"
+           Text="Purchase Date:"
+           Margin="0,8"/>
+
+        <DatePicker Grid.Row="4"
+            Grid.Column="1"
+            x:Name="PurchaseDatePicker"
+            Margin="5"/>
+
+        <TextBlock Grid.Row="5"
+           Grid.Column="0"
+           Text="Condition:"
+           Margin="0,8"/>
+
+        <ComboBox Grid.Row="5"
+          Grid.Column="1"
+          x:Name="ConditionComboBox"
+          Margin="5">
+
+            <ComboBoxItem Content="Excellent"/>
+            <ComboBoxItem Content="Good"/>
+            <ComboBoxItem Content="Fair"/>
+            <ComboBoxItem Content="Needs Repair"/>
+
+        </ComboBox>
+
+        <TextBlock Grid.Row="6"
+           Grid.Column="0"
+           Text="Available:"
+           Margin="0,8"/>
+
+        <CheckBox Grid.Row="6"
+          Grid.Column="1"
+          x:Name="AvailableCheckBox"
+          IsChecked="True"
+          VerticalAlignment="Center"/>
+
+
+        <StackPanel Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Margin="0,25,0,0">
+
+            <!--
+    When this button is clicked, the information entered
+    into the form will be used to create an Equipment object.
+-->
+            <Button Content="Add Equipment"
+        Width="130"
+        Height="35"
+        Margin="5"
+        Click="AddEquipmentButton_Click"/>
+
+            <!--
+    Closes the window without creating equipment.
+-->
+            <Button Content="Cancel"
+        Width="90"
+        Height="35"
+        Margin="5"
+        Click="CancelButton_Click"/>
+
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>

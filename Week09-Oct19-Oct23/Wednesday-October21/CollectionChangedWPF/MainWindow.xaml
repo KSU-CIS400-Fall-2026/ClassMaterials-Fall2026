@@ -1,0 +1,118 @@
+﻿<Window x:Class="CollectionChangedWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CollectionChanged Demo"
+        Height="550"
+        Width="850">
+
+    <Grid Margin="20">
+
+        <!--
+            Divide the Window into three rows.
+
+            Row 0 = Heading
+            Row 1 = Buttons
+            Row 2 = DataGrid
+        -->
+        <Grid.RowDefinitions>
+
+            <!-- Only take the space needed by the heading. -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Only take the space needed by the buttons. -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Use all remaining space for the DataGrid. -->
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =====================================================
+             HEADING
+             ===================================================== -->
+
+        <TextBlock Grid.Row="0"
+                   Text="Campus Equipment Center"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+
+
+        <!-- =====================================================
+             BUTTONS
+             ===================================================== -->
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15">
+
+            <!-- Adds a new Equipment object to the collection. -->
+            <Button Content="Add Equipment"
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Click="AddEquipment_Click"/>
+
+
+            <!-- Removes the selected Equipment object. -->
+            <Button Content="Remove Selected"
+                    Width="140"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Click="RemoveEquipment_Click"/>
+
+
+            <!-- Clears the entire ObservableCollection. -->
+            <Button Content="Clear All"
+                    Width="100"
+                    Height="35"
+                    Click="ClearEquipment_Click"/>
+
+        </StackPanel>
+
+
+        <!-- =====================================================
+             DATAGRID
+             ===================================================== -->
+
+        <DataGrid Grid.Row="2"
+
+                  x:Name="EquipmentDataGrid"
+
+                  AutoGenerateColumns="False"
+
+                  IsReadOnly="True"
+
+                  SelectionMode="Single">
+
+            <!--
+                These columns determine which Equipment properties
+                are displayed in the DataGrid.
+            -->
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Asset #"
+                                    Binding="{Binding AssetNumber}"
+                                    Width="120"/>
+
+                <DataGridTextColumn Header="Equipment"
+                                    Binding="{Binding EquipmentName}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Category"
+                                    Binding="{Binding Category}"
+                                    Width="150"/>
+
+                <DataGridTextColumn Header="Daily Rate"
+                                    Binding="{Binding DailyRentalRate,
+                                              StringFormat=C}"
+                                    Width="120"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+
+</Window>

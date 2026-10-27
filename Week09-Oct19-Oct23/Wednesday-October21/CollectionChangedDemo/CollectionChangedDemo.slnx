@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../CollectionChangedWPF/CollectionChangedWPF.csproj" Id="dce22fd3-0600-42ce-b7dc-fe6f787e8c00" />
+  <Project Path="CollectionChangedDemo.csproj" />
+</Solution>

@@ -1,0 +1,145 @@
+<UserControl x:Class="EquipmentRentalManager.Controls.Editing.EquipmentEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        This UserControl edits ONE existing Equipment object.
+
+        Important: this control does NOT create a new Equipment object.
+        EquipmentControl selects an existing object and assigns it to this
+        control's DataContext:
+
+            EquipmentEditor.DataContext = selectedEquipment;
+
+        The bindings below then know which Equipment object to read/write.
+    -->
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Editor heading -->
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Text="Edit Equipment"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Margin="0,0,0,25"/>
+
+        <!-- ============================================================ -->
+        <!-- ASSET NUMBER                                                 -->
+        <!-- ============================================================ -->
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Text="Asset Number:"
+                   Margin="5"/>
+
+        <!--
+            AssetNumber identifies the equipment and should not be edited.
+            Mode=OneWay makes our intention explicit:
+
+                Equipment object  →  TextBox
+
+            IsReadOnly=True also prevents the user from typing into the box.
+        -->
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 Text="{Binding AssetNumber, Mode=OneWay}"
+                 IsReadOnly="True"
+                 Margin="5"/>
+
+        <!-- ============================================================ -->
+        <!-- EQUIPMENT NAME                                               -->
+        <!-- ============================================================ -->
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   Text="Equipment Name:"
+                   Margin="5"/>
+
+        <!--
+            Mode=TwoWay allows data to travel in BOTH directions:
+
+                Equipment object  -><-  TextBox
+
+            The object's current name appears in the TextBox, and an edit made
+            by the user can be sent back to EquipmentName.
+        -->
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding EquipmentName, Mode=TwoWay}"
+                 Margin="5"/>
+
+        <!-- ============================================================ -->
+        <!-- DAILY RENTAL RATE                                            -->
+        <!-- ============================================================ -->
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Text="Daily Rate:"
+                   Margin="5"/>
+
+        <!-- Editable value, so we use TwoWay binding. -->
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Text="{Binding DailyRentalRate, Mode=TwoWay}"
+                 Margin="5"/>
+
+        <!-- ============================================================ -->
+        <!-- CONDITION                                                    -->
+        <!-- ============================================================ -->
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   Text="Condition:"
+                   Margin="5"/>
+
+        <!--
+            The ComboBox choices are populated in EquipmentEditControl.xaml.cs
+            using Enum.GetValues(typeof(EquipmentCondition)).
+
+            SelectedItem is bound TwoWay so:
+            1. the current Condition is selected when the editor opens, and
+            2. choosing another condition can update the Equipment object.
+        -->
+        <ComboBox x:Name="ConditionComboBox"
+                  Grid.Row="4"
+                  Grid.Column="1"
+                  SelectedItem="{Binding Condition, Mode=TwoWay}"
+                  Margin="5"/>
+
+        <!-- ============================================================ -->
+        <!-- EDITOR ACTION BUTTONS                                        -->
+        <!-- ============================================================ -->
+        <StackPanel Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    Margin="0,25,0,0">
+
+            <!--
+                The child control does not directly manipulate its parent.
+                Instead, SaveButton_Click raises our custom SaveRequested event.
+            -->
+            <Button Content="Save"
+                    Width="120"
+                    Margin="0,0,10,0"
+                    Click="SaveButton_Click"/>
+
+            <!-- Raises our custom BackRequested event. -->
+            <Button Content="Back to Equipment"
+                    Width="160"
+                    Click="BackButton_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

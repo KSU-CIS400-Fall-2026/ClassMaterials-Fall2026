@@ -1,0 +1,21 @@
+<Window x:Class="EquipmentRentalManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Equipment Rental Manager"
+        Height="450"
+        Width="800">
+
+    <!--
+        MainWindow acts as the application's outer shell.
+        MainContent is an empty ContentControl that can display another control.
+
+        In MainWindow.xaml.cs we create EquipmentControl and then write:
+
+            MainContent.Content = equipmentControl;
+
+        That places EquipmentControl in this area of the window.
+    -->
+    <Grid>
+        <ContentControl x:Name="MainContent"/>
+    </Grid>
+</Window>

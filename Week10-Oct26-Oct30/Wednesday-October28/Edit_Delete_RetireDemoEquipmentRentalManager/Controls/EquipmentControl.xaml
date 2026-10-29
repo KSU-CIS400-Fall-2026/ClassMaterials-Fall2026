@@ -1,0 +1,161 @@
+<UserControl x:Class="EquipmentRentalManager.Controls.EquipmentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:editing="clr-namespace:EquipmentRentalManager.Controls.Editing">
+
+    <!--
+        The OUTER Grid holds two different interfaces in the same page:
+
+        1. EquipmentListPanel - the normal list/table interface.
+        2. EquipmentEditor    - the editing interface.
+
+        We perform CONTROL SWAPPING by changing their Visibility values.
+
+        Normal state:
+            EquipmentListPanel = Visible
+            EquipmentEditor    = Collapsed
+
+        Editing state:
+            EquipmentListPanel = Collapsed
+            EquipmentEditor    = Visible
+    -->
+    <Grid>
+
+        <!-- ============================================================ -->
+        <!-- NORMAL EQUIPMENT INTERFACE                                   -->
+        <!-- ============================================================ -->
+        <!--
+            We give this Grid a name because EquipmentControl.xaml.cs needs
+            to access it when switching between list mode and edit mode.
+        -->
+        <Grid x:Name="EquipmentListPanel"
+              Margin="25">
+
+            <Grid.RowDefinitions>
+                <!-- Heading -->
+                <RowDefinition Height="Auto"/>
+
+                <!-- Buttons -->
+                <RowDefinition Height="Auto"/>
+
+                <!-- DataGrid takes the remaining space -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Page heading -->
+            <TextBlock Grid.Row="0"
+                       Text="Equipment"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"/>
+
+            <!-- Action buttons -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,15">
+
+                <!-- Add is intentionally left for a later extension of the demo. -->
+                <Button Content="Add"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="AddButton_Click"/>
+
+                <!-- Opens the selected EXISTING Equipment object in the editor. -->
+                <Button Content="Edit"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="EditButton_Click"/>
+
+                <!-- Removes the selected object from the ObservableCollection. -->
+                <Button Content="Delete"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="DeleteButton_Click"/>
+
+                <!-- Changes Status instead of removing the object. -->
+                <Button Content="Retire"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="RetireButton_Click"/>
+
+            </StackPanel>
+
+            <!--
+                The DataGrid displays the Equipment objects in the collection.
+                Its ItemsSource is assigned in EquipmentControl.xaml.cs.
+
+                AutoGenerateColumns=False:
+                    We define exactly which columns appear.
+
+                IsReadOnly=True:
+                    Editing happens in EquipmentEditControl, not directly in
+                    the DataGrid.
+
+                SelectionMode=Single:
+                    Only one Equipment object can be selected for an action.
+
+                CanUserAddRows=False:
+                    Prevents the extra blank "new item" row at the bottom.
+            -->
+            <DataGrid x:Name="EquipmentDataGrid"
+                      Grid.Row="2"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      CanUserAddRows="False">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Asset #"
+                                        Binding="{Binding AssetNumber}"/>
+
+                    <DataGridTextColumn Header="Equipment"
+                                        Binding="{Binding EquipmentName}"/>
+
+                    <DataGridTextColumn Header="Category"
+                                        Binding="{Binding Category}"/>
+
+                    <DataGridTextColumn Header="Rate"
+                                        Binding="{Binding DailyRentalRate}"/>
+
+                    <DataGridTextColumn Header="Condition"
+                                        Binding="{Binding Condition}"/>
+
+                    <DataGridTextColumn Header="Status"
+                                        Binding="{Binding Status}"/>
+
+                    <!--
+                        AvailabilityMessage is derived from Status.
+                        When Status changes, Equipment raises PropertyChanged
+                        for both Status and AvailabilityMessage.
+                    -->
+                    <DataGridTextColumn Header="Availability"
+                                        Binding="{Binding AvailabilityMessage}"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Grid>
+
+        <!-- ============================================================ -->
+        <!-- EDITING INTERFACE                                            -->
+        <!-- ============================================================ -->
+        <!--
+            This is our reusable child UserControl.
+
+            It starts Collapsed because the normal equipment list should be
+            shown when the page first opens.
+
+            When Edit is clicked, EquipmentControl.xaml.cs:
+            1. gets the selected Equipment object,
+            2. assigns it to EquipmentEditor.DataContext,
+            3. collapses EquipmentListPanel, and
+            4. makes EquipmentEditor visible.
+        -->
+        <editing:EquipmentEditControl
+            x:Name="EquipmentEditor"
+            Visibility="Collapsed"/>
+
+    </Grid>
+</UserControl>

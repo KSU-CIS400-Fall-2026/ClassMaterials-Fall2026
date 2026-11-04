@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../IntegrationTestDemo/IntegrationTestDemo.csproj" Id="3710c5f0-0082-4346-9720-7942b20c8f89" />
+  <Project Path="VehicleRentalManager.csproj" />
+</Solution>

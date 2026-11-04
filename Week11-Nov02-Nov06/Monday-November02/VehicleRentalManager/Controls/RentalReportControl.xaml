@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="VehicleRentalManager.Controls.RentalReportControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        This UserControl is our VIEW.
+
+        Its primary responsibility is PRESENTATION.
+
+        Notice that the TextBlocks below do not calculate
+        vehicle totals themselves. They simply bind to
+        properties supplied by the ViewModel.
+    -->
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- REPORT HEADING -->
+        <TextBlock Grid.Row="0"
+                   Text="Vehicle Rental Report"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Margin="0,0,0,25"/>
+
+        <!-- SUMMARY INFORMATION -->
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Total Vehicles -->
+            <Border Grid.Column="0"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Padding="20"
+                    Margin="5">
+
+                <StackPanel>
+
+                    <TextBlock Text="Total Vehicles"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="{Binding TotalVehicles}"
+                               FontSize="28"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Available Vehicles -->
+            <Border Grid.Column="1"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Padding="20"
+                    Margin="5">
+
+                <StackPanel>
+
+                    <TextBlock Text="Available Vehicles"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="{Binding AvailableVehicles}"
+                               FontSize="28"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <!-- Rented Vehicles -->
+            <Border Grid.Column="2"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Padding="20"
+                    Margin="5">
+
+                <StackPanel>
+
+                    <TextBlock Text="Rented Vehicles"
+                               FontWeight="Bold"/>
+
+                    <TextBlock Text="{Binding RentedVehicles}"
+                               FontSize="28"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+        <!-- Additional report information -->
+        <StackPanel Grid.Row="2"
+                    Margin="5,25,5,0">
+
+            <TextBlock FontSize="18"
+                       Margin="0,5">
+
+                <Run Text="Utilization Rate: "/>
+
+                <Run Text="{Binding UtilizationRate,
+                                    Mode=OneWay,
+                                   StringFormat={}{0:F1}%}"/>
+
+            </TextBlock>
+
+            <TextBlock FontSize="18"
+                       Margin="0,5">
+
+                <Run Text="Total Revenue: "/>
+
+                <Run Text="{Binding TotalRevenue,
+                    Mode=OneWay,
+                                   StringFormat={}{0:C}}"/>
+
+            </TextBlock>
+
+            <Button Content="Generate HTML Report"
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Padding="10"
+                    Margin="0,20,0,0"
+                    Click="GenerateReportButton_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>
